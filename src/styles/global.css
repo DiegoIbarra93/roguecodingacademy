@@ -51,7 +51,8 @@
     min-height: 100dvh;
   }
 
-  body.nav-open {
+  body.nav-open,
+  body.seat-flyout-open {
     overflow: hidden;
   }
 

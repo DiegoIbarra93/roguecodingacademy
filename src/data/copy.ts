@@ -79,10 +79,34 @@ export const footerCopy = {
 export const coursesPage = {
   title: 'Courses',
   description:
-    'Three levels — beginner through advanced. AI is woven through every course; Advanced AI Engineering goes deep. Filter by level and topic to find what fits.',
+    'Eight real builds across three tracks — from your first website to production AI. Pick where you are; every course ends with something live on the internet.',
+  pathChips: [
+    { href: '#beginner', label: 'New to code', hint: 'Beginner track' },
+    { href: '#intermediate', label: 'Building products', hint: 'Intermediate track' },
+    { href: '#advanced', label: 'Harden & grow', hint: 'Advanced track' },
+  ] as const,
+  sections: {
+    beginner: {
+      title: 'Beginner',
+      description:
+        'Start from zero. You will ship real pages and dashboards — AI helps you move faster, but you own every line you accept.',
+    },
+    intermediate: {
+      title: 'Intermediate',
+      description:
+        'You can build pages or have shipped before. These courses turn ideas into products — MVPs, full web apps, and mobile apps in the store.',
+    },
+    advanced: {
+      title: 'Advanced',
+      description:
+        'You have something live. Harden it, get found, and engineer AI systems with production guardrails.',
+    },
+  } as const,
   emptyTitle: 'Catalog loading',
   emptyBody:
     'Course offerings are being finalized. Request a seat below and we will match you when cohorts open.',
+  filterEmptyTitle: 'No matches',
+  filterEmptyBody: 'Try another topic or search term — or pick a track above.',
 } as const;
 
 export const teamPage = {

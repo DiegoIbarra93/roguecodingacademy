@@ -7,6 +7,7 @@ import { glob } from 'astro/loaders';
  */
 const courseSchema = z.object({
   title: z.string(),
+  build: z.string(),
   summary: z.string(),
   level: z.enum(['beginner', 'intermediate', 'advanced']),
   topics: z.array(z.string()).default([]),

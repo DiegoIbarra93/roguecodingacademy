@@ -20,10 +20,6 @@ export function buildSeatMailto(payload: SeatRequestPayload): string {
     '— Sent from roguecoding.academy seat request form',
   ].join('\n');
 
-  const params = new URLSearchParams({
-    subject,
-    body,
-  });
-
-  return `mailto:${site.email}?${params.toString()}`;
+  // mailto needs encodeURIComponent (%20), not URLSearchParams (+ for spaces)
+  return `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }

@@ -1,5 +1,6 @@
 ---
 title: Product Thinking & MVPs
+build: Validate a problem and ship an MVP prototype
 summary: Learn to find real customer problems, validate ideas, and ship early prototypes before you overbuild. AI accelerates research and mockups — judgment stays yours.
 level: intermediate
 topics:
@@ -8,7 +9,7 @@ topics:
   - prototyping
   - discovery
   - AI literacy
-duration: 6 weeks
+duration: 6 weeks · 2.5 hr once a week
 format: in-person
 status: coming-soon
 featured: true

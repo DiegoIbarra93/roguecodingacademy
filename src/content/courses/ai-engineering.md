@@ -1,5 +1,6 @@
 ---
 title: Advanced AI Engineering
+build: Engineer a production AI feature or agent with evals
 summary: Go beyond copilots — agents, evals, RAG, tooling, and production guardrails for AI-powered systems.
 level: advanced
 topics:
@@ -8,7 +9,7 @@ topics:
   - RAG
   - evaluation
   - production
-duration: 8 weeks
+duration: 6 weeks · 2.5 hr once a week
 format: in-person
 status: coming-soon
 featured: true

@@ -1,5 +1,6 @@
 ---
 title: Web Applications
+build: Build a full web app and put it live on the internet
 summary: Go from pages to products — full-stack apps with auth, data, and deployment. AI speeds scaffolding; you own architecture and reliability.
 level: intermediate
 topics:
@@ -7,7 +8,7 @@ topics:
   - fullstack
   - applications
   - AI literacy
-duration: 10 weeks
+duration: 6 weeks · 2.5 hr once a week
 format: in-person
 status: coming-soon
 featured: true
