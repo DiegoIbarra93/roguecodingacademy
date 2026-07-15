@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import CourseFilter from '../../components/vue/CourseFilter.vue';
+import SeatRequestForm from '../../components/vue/SeatRequestForm.vue';
+import { coursesPage, formCopy } from '../../data/copy';
+import { site } from '../../data/site';
+import {
+  getAllCourses,
+  getUniqueLevels,
+  getUniqueTopics,
+} from '../../lib/courses';
+import { organizationSchema, webPageSchema } from '../../lib/schema';
+
+const courses = await getAllCourses();
+const topics = getUniqueTopics(courses);
+const levels = getUniqueLevels(courses);
+const courseOptions = courses.map((c) => ({ slug: c.slug, title: c.title }));
+
+const jsonLd = [
+  organizationSchema(),
+  webPageSchema({
+    name: coursesPage.title,
+    description: coursesPage.description,
+    path: '/courses',
+    type: 'CollectionPage',
+  }),
+];
+---
+
+<BaseLayout
+  title={coursesPage.title}
+  description={coursesPage.description}
+  jsonLd={jsonLd}
+>
+  <Section eyebrow={site.name} title={coursesPage.title} class="!pt-8 sm:!pt-14">
+    <p class="mb-6 max-w-2xl text-base text-app-muted sm:mb-10 sm:text-lg">{coursesPage.description}</p>
+    <CourseFilter
+      client:visible
+      courses={courses}
+      topics={topics}
+      levels={levels}
+      emptyTitle={courses.length === 0 ? coursesPage.emptyTitle : 'No matches'}
+      emptyBody={
+        courses.length === 0
+          ? coursesPage.emptyBody
+          : 'Try another topic, level, or search term.'
+      }
+    />
+  </Section>
+
+  <Section id="request-seat">
+    <SeatRequestForm
+      client:visible
+      courses={courseOptions}
+      title={formCopy.title}
+      supporting={formCopy.supporting}
+      submitLabel={formCopy.submitLabel}
+      successMessage={formCopy.success}
+      privacy={formCopy.privacy}
+    />
+  </Section>
+</BaseLayout>

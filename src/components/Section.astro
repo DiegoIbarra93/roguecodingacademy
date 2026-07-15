@@ -1,0 +1,28 @@
+---
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title?: string;
+  class?: string;
+}
+
+const { id, eyebrow, title, class: className = '' } = Astro.props;
+---
+
+<section id={id} class:list={['section-pad', className]}>
+  <div class="mx-auto max-w-6xl">
+    {
+      (eyebrow || title) && (
+        <header class="mb-6 max-w-3xl sm:mb-10">
+          {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+          {title && (
+            <h2 class="mt-2 font-display text-2xl font-semibold tracking-tight text-app-text sm:mt-3 sm:text-3xl md:text-4xl">
+              {title}
+            </h2>
+          )}
+        </header>
+      )
+    }
+    <slot />
+  </div>
+</section>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#06040a"/>
+  <circle cx="900" cy="80" r="280" fill="#ff2ec8" fill-opacity="0.14"/>
+  <circle cx="200" cy="500" r="220" fill="#6b1558" fill-opacity="0.4"/>
+  <rect x="80" y="80" width="1040" height="470" rx="32" stroke="#3d2a48" stroke-opacity="0.8" fill="#130e1a" fill-opacity="0.55"/>
+  <text x="120" y="260" font-family="system-ui,sans-serif" font-size="64" font-weight="700" fill="#f3eaf6">Rogue Coding Academy</text>
+  <text x="120" y="340" font-family="system-ui,sans-serif" font-size="32" fill="#a892b5">Harness AI with real software craft.</text>
+  <text x="120" y="420" font-family="system-ui,sans-serif" font-size="24" fill="#ff2ec8">Grants Pass, OR</text>
+</svg>

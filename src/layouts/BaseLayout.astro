@@ -1,0 +1,53 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  canonicalPath?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { title, description, ogImage, canonicalPath, jsonLd } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      canonicalPath={canonicalPath}
+      jsonLd={jsonLd}
+    />
+  </head>
+  <body class="marketing-bg">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-app-accent focus:px-4 focus:py-2 focus:text-app-bg"
+    >
+      Skip to content
+    </a>
+    <div class="relative min-h-dvh overflow-x-clip">
+      <!-- Soft static wash for non-home pages; home hero owns its own drifting orbs -->
+      <div
+        class="pointer-events-none absolute -left-32 top-24 h-72 w-72 rounded-full bg-app-accent/10 blur-3xl motion-reduce:hidden"
+        aria-hidden="true"
+      ></div>
+      <div
+        class="pointer-events-none absolute -right-24 top-[40%] h-80 w-80 rounded-full bg-app-river/25 blur-3xl motion-reduce:hidden"
+        aria-hidden="true"
+      ></div>
+      <Header />
+      <main id="main">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

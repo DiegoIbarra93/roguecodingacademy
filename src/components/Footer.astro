@@ -1,0 +1,35 @@
+---
+import { footerCopy } from '../data/copy';
+import { nav, site } from '../data/site';
+---
+
+<footer class="section-pad !pb-[max(2.5rem,env(safe-area-inset-bottom))] !pt-8 sm:!pt-10">
+  <div class="mx-auto max-w-6xl">
+    <div class="glass-panel flex flex-col gap-6 p-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8 sm:p-8">
+      <div class="max-w-md">
+        <p class="font-display text-lg font-semibold tracking-tight sm:text-xl">{site.name}</p>
+        <p class="mt-2 text-sm text-app-muted">
+          {site.location.city}, {site.location.region} · {site.location.areaServed}
+        </p>
+        <p class="mt-1 text-sm text-app-muted">
+          <a href={`mailto:${site.email}`} class="text-app-mist hover:text-app-accent">
+            {site.email}
+          </a>
+        </p>
+      </div>
+      <nav class="flex flex-wrap gap-x-4 gap-y-2 text-sm" aria-label="Footer">
+        {nav.map((item) => (
+          <a href={item.href} class="inline-flex min-h-11 items-center text-app-muted hover:text-app-text">
+            {item.label}
+          </a>
+        ))}
+        <a href="/courses#request-seat" class="inline-flex min-h-11 items-center text-app-accent hover:text-app-mist">
+          Request a seat
+        </a>
+      </nav>
+    </div>
+    <p class="mt-6 text-center text-xs text-app-muted/80 sm:mt-8">
+      © {new Date().getFullYear()} {site.name}. {footerCopy.credit}
+    </p>
+  </div>
+</footer>

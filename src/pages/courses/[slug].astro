@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import SeatRequestForm from '../../components/vue/SeatRequestForm.vue';
+import { formCopy } from '../../data/copy';
+import { getAllCourses, getCourseBySlug, toCourseListItem } from '../../lib/courses';
+import { courseSchema, organizationSchema, webPageSchema } from '../../lib/schema';
+import { render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const courses = await getAllCourses();
+  return courses.map((c) => ({
+    params: { slug: c.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const entry = await getCourseBySlug(slug!);
+if (!entry) {
+  throw new Error(`Course not found: ${slug}`);
+}
+
+const course = toCourseListItem(entry);
+const { Content } = await render(entry);
+const all = await getAllCourses();
+const courseOptions = all.map((c) => ({ slug: c.slug, title: c.title }));
+
+const jsonLd = [
+  organizationSchema(),
+  webPageSchema({
+    name: course.title,
+    description: course.summary,
+    path: `/courses/${course.slug}`,
+  }),
+  courseSchema(course),
+];
+---
+
+<BaseLayout title={course.title} description={course.summary} jsonLd={jsonLd}>
+  <Section class="!pt-8 sm:!pt-14">
+    <a href="/courses" class="inline-flex min-h-11 items-center text-sm text-app-mist hover:text-app-accent">← All courses</a>
+    <p class="eyebrow mt-5 sm:mt-6">
+      {course.level} · {course.format} · {course.status.replace('-', ' ')}
+    </p>
+    <h1 class="mt-2 max-w-3xl font-display text-2xl font-semibold tracking-tight sm:mt-3 sm:text-4xl md:text-5xl">
+      {course.title}
+    </h1>
+    <p class="mt-4 max-w-2xl text-base text-app-muted sm:mt-5 sm:text-lg">{course.summary}</p>
+    {
+      course.duration && (
+        <p class="mt-3 text-sm text-app-mist">Duration: {course.duration}</p>
+      )
+    }
+
+    {
+      course.topics.length > 0 && (
+        <ul class="mt-6 flex flex-wrap gap-2">
+          {course.topics.map((t) => (
+            <li class="rounded-lg border border-app-border/60 bg-app-surface/50 px-2.5 py-1 text-xs text-app-mist">
+              {t}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <div class="glass-panel prose prose-invert mt-8 max-w-none p-5 sm:mt-10 sm:p-8">
+      <Content />
+    </div>
+
+    {
+      course.outcomes.length > 0 && (
+        <div class="mt-10">
+          <h2 class="font-display text-xl font-semibold">Outcomes</h2>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-app-muted">
+            {course.outcomes.map((o) => (
+              <li>{o}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      course.prerequisites.length > 0 && (
+        <div class="mt-8">
+          <h2 class="font-display text-xl font-semibold">Prerequisites</h2>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-app-muted">
+            {course.prerequisites.map((p) => (
+              <li>{p}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </Section>
+
+  <Section id="request-seat">
+    <SeatRequestForm
+      client:visible
+      courses={courseOptions}
+      defaultCourse={course.slug}
+      title={formCopy.title}
+      supporting={formCopy.supporting}
+      submitLabel={formCopy.submitLabel}
+      successMessage={formCopy.success}
+      privacy={formCopy.privacy}
+    />
+  </Section>
+</BaseLayout>
+
+<style>
+  .prose :global(p) {
+    margin-top: 0.75rem;
+    color: var(--color-app-muted);
+    line-height: 1.65;
+  }
+  .prose :global(strong) {
+    color: var(--color-app-text);
+  }
+  .prose :global(a) {
+    color: var(--color-app-accent);
+  }
+  .prose :global(ul) {
+    margin-top: 0.75rem;
+    padding-left: 1.25rem;
+    color: var(--color-app-muted);
+  }
+</style>
