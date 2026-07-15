@@ -1,5 +1,6 @@
 ---
 title: Data, APIs & Dashboards
+build: Build an analytics dashboard to help you make decisions
 summary: Store and query data with MySQL and NoSQL, build APIs, and turn numbers into insight. AI helps you explore schemas and queries — you own the model.
 level: beginner
 topics:
@@ -8,7 +9,7 @@ topics:
   - data
   - analytics
   - AI literacy
-duration: 8 weeks
+duration: 6 weeks · 2.5 hr once a week
 format: in-person
 status: coming-soon
 featured: true

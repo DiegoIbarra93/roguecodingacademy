@@ -1,21 +1,26 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/Section.astro';
-import CourseFilter from '../../components/vue/CourseFilter.vue';
-import SeatRequestForm from '../../components/vue/SeatRequestForm.vue';
+import CourseCard from '../../components/CourseCard.astro';
+import CourseFilterBar from '../../components/vue/CourseFilterBar.vue';
+import SeatRequestFlyout from '../../components/vue/SeatRequestFlyout.vue';
 import { coursesPage, formCopy } from '../../data/copy';
 import { site } from '../../data/site';
 import {
   getAllCourses,
-  getUniqueLevels,
   getUniqueTopics,
+  groupCoursesByLevel,
 } from '../../lib/courses';
 import { organizationSchema, webPageSchema } from '../../lib/schema';
 
 const courses = await getAllCourses();
 const topics = getUniqueTopics(courses);
-const levels = getUniqueLevels(courses);
-const courseOptions = courses.map((c) => ({ slug: c.slug, title: c.title }));
+const byLevel = groupCoursesByLevel(courses);
+const courseOptions = courses.map((c) => ({
+  slug: c.slug,
+  title: c.title,
+  label: c.build,
+}));
 
 const jsonLd = [
   organizationSchema(),
@@ -26,6 +31,16 @@ const jsonLd = [
     type: 'CollectionPage',
   }),
 ];
+
+const levelSections = [
+  { id: 'beginner', ...coursesPage.sections.beginner, courses: byLevel.beginner },
+  {
+    id: 'intermediate',
+    ...coursesPage.sections.intermediate,
+    courses: byLevel.intermediate,
+  },
+  { id: 'advanced', ...coursesPage.sections.advanced, courses: byLevel.advanced },
+] as const;
 ---
 
 <BaseLayout
@@ -34,30 +49,76 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <Section eyebrow={site.name} title={coursesPage.title} class="!pt-8 sm:!pt-14">
-    <p class="mb-6 max-w-2xl text-base text-app-muted sm:mb-10 sm:text-lg">{coursesPage.description}</p>
-    <CourseFilter
+    <p class="mb-6 max-w-2xl text-base text-app-muted sm:mb-8 sm:text-lg">
+      {coursesPage.description}
+    </p>
+
+    <nav aria-label="Course tracks" class="mb-8 flex flex-wrap gap-2 sm:mb-10 sm:gap-3">
+      {
+        coursesPage.pathChips.map((chip) => (
+          <a
+            href={chip.href}
+            class="group inline-flex min-h-12 flex-col justify-center rounded-xl border border-app-border/70 bg-app-surface/40 px-4 py-2.5 transition-colors duration-200 hover:border-app-accent/50 hover:bg-app-surface/70 sm:px-5"
+          >
+            <span class="font-display text-sm font-semibold text-app-text group-hover:text-app-accent">
+              {chip.label}
+            </span>
+            <span class="text-xs text-app-muted">{chip.hint}</span>
+          </a>
+        ))
+      }
+    </nav>
+
+    <CourseFilterBar
       client:visible
-      courses={courses}
       topics={topics}
-      levels={levels}
-      emptyTitle={courses.length === 0 ? coursesPage.emptyTitle : 'No matches'}
+      emptyTitle={courses.length === 0 ? coursesPage.emptyTitle : coursesPage.filterEmptyTitle}
       emptyBody={
-        courses.length === 0
-          ? coursesPage.emptyBody
-          : 'Try another topic, level, or search term.'
+        courses.length === 0 ? coursesPage.emptyBody : coursesPage.filterEmptyBody
       }
     />
+
+    {
+      courses.length === 0 ? (
+        <div class="glass-panel p-6 text-center sm:p-8">
+          <h2 class="font-display text-xl font-semibold">{coursesPage.emptyTitle}</h2>
+          <p class="mx-auto mt-2 max-w-lg text-sm text-app-muted">{coursesPage.emptyBody}</p>
+        </div>
+      ) : (
+        <div class="space-y-12 sm:space-y-16">
+          {levelSections.map((section) =>
+            section.courses.length > 0 ? (
+              <section
+                id={section.id}
+                data-course-section
+                class="scroll-mt-28"
+              >
+                <h2 class="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
+                  {section.title}
+                </h2>
+                <p class="mt-2 max-w-2xl text-sm text-app-muted sm:text-base">
+                  {section.description}
+                </p>
+                <ul class="mt-6 grid gap-4 sm:mt-8 sm:grid-cols-2 sm:gap-5">
+                  {section.courses.map((course) => (
+                    <CourseCard course={course} />
+                  ))}
+                </ul>
+              </section>
+            ) : null,
+          )}
+        </div>
+      )
+    }
   </Section>
 
-  <Section id="request-seat">
-    <SeatRequestForm
-      client:visible
-      courses={courseOptions}
-      title={formCopy.title}
-      supporting={formCopy.supporting}
-      submitLabel={formCopy.submitLabel}
-      successMessage={formCopy.success}
-      privacy={formCopy.privacy}
-    />
-  </Section>
+  <SeatRequestFlyout
+    client:idle
+    courses={courseOptions}
+    title={formCopy.title}
+    supporting={formCopy.supporting}
+    submitLabel={formCopy.submitLabel}
+    successMessage={formCopy.success}
+    privacy={formCopy.privacy}
+  />
 </BaseLayout>

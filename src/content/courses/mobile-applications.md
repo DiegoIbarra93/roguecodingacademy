@@ -1,12 +1,13 @@
 ---
 title: Mobile Applications
+build: Ship a mobile app to the app store
 summary: Design and ship native-feeling mobile apps. Use AI for UI drafts and boilerplate; finish with a store-ready build.
 level: intermediate
 topics:
   - mobile
   - applications
   - AI literacy
-duration: 10 weeks
+duration: 6 weeks · 2.5 hr once a week
 format: in-person
 status: coming-soon
 featured: true

@@ -2,10 +2,13 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 export type CourseEntry = CollectionEntry<'courses'>;
 
+export type CourseLevel = CourseEntry['data']['level'];
+
 export type CourseListItem = {
   id: string;
   slug: string;
   title: string;
+  build: string;
   summary: string;
   level: CourseEntry['data']['level'];
   topics: string[];
@@ -23,6 +26,7 @@ export function toCourseListItem(entry: CourseEntry): CourseListItem {
     id: entry.id,
     slug: entry.id,
     title: entry.data.title,
+    build: entry.data.build,
     summary: entry.data.summary,
     level: entry.data.level,
     topics: entry.data.topics,
@@ -58,6 +62,25 @@ export function getUniqueLevels(courses: CourseListItem[]): CourseListItem['leve
   return order.filter((l) => present.has(l));
 }
 
+const levelOrder: CourseLevel[] = ['beginner', 'intermediate', 'advanced'];
+
+export function groupCoursesByLevel(
+  courses: CourseListItem[],
+): Record<CourseLevel, CourseListItem[]> {
+  const grouped: Record<CourseLevel, CourseListItem[]> = {
+    beginner: [],
+    intermediate: [],
+    advanced: [],
+  };
+  for (const course of courses) {
+    grouped[course.level].push(course);
+  }
+  for (const level of levelOrder) {
+    grouped[level].sort((a, b) => a.order - b.order || a.title.localeCompare(b.title));
+  }
+  return grouped;
+}
+
 export function filterCourses(
   courses: CourseListItem[],
   opts: { topic?: string; level?: string; query?: string },
@@ -67,7 +90,7 @@ export function filterCourses(
     if (opts.topic && opts.topic !== 'all' && !c.topics.includes(opts.topic)) return false;
     if (opts.level && opts.level !== 'all' && c.level !== opts.level) return false;
     if (!q) return true;
-    const hay = [c.title, c.summary, ...c.topics].join(' ').toLowerCase();
+    const hay = [c.build, c.title, c.summary, ...c.topics].join(' ').toLowerCase();
     return hay.includes(q);
   });
 }

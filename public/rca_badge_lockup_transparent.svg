@@ -1,0 +1,24 @@
+<svg viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gBadgeL" gradientUnits="userSpaceOnUse" x1="23" y1="23" x2="157" y2="157">
+      <stop offset="0%" stop-color="#FF2EC8"/>
+      <stop offset="100%" stop-color="#4A0F63"/>
+    </linearGradient>
+    <clipPath id="cBadgeL"><rect x="23" y="23" width="134" height="134" rx="30"/></clipPath>
+  </defs>
+  <g transform="translate(15,15)">
+    <g style="filter: drop-shadow(0 4px 10px rgba(74,15,99,0.4));">
+      <g clip-path="url(#cBadgeL)">
+        <rect x="23" y="23" width="134" height="134" fill="url(#gBadgeL)"/>
+        <path d="M40,60 Q56.7,50 73.3,60 Q90,70 106.7,60 Q123.3,50 140,60"
+              fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M40,90 Q56.7,80 73.3,90 Q90,100 106.7,90 Q123.3,80 140,90"
+              fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M40,120 Q56.7,110 73.3,120 Q90,130 106.7,120 Q123.3,110 140,120"
+              fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+  </g>
+  <text x="195" y="97" font-family="'Syne Variable', 'Poppins', sans-serif" font-weight="700"
+        font-size="46" letter-spacing="0.3" fill="#FF2EC8" dominant-baseline="middle">Rogue Coding Academy</text>
+</svg>

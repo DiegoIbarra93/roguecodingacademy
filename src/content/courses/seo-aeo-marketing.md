@@ -1,5 +1,6 @@
 ---
 title: SEO, AEO & Marketing Strategy
+build: Get found — SEO, AI answers, and an organic growth plan
 summary: Make your product discoverable — search, AI answers, and a focused go-to-market. AI drafts content; you own strategy and measurement.
 level: advanced
 topics:
@@ -8,7 +9,7 @@ topics:
   - marketing
   - growth
   - AI literacy
-duration: 6 weeks
+duration: 6 weeks · 2.5 hr once a week
 format: in-person
 status: coming-soon
 featured: true

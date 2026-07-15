@@ -1,5 +1,6 @@
 ---
 title: Authentication, Security & DNS
+build: Lock down your app with auth, DNS, and edge protection
 summary: Harden apps and domains — auth flows, threat basics, DNS, and edge protection. AI assists audits; you verify every control.
 level: advanced
 topics:
@@ -8,7 +9,7 @@ topics:
   - DNS
   - infrastructure
   - AI literacy
-duration: 6 weeks
+duration: 6 weeks · 2.5 hr once a week
 format: in-person
 status: coming-soon
 featured: true

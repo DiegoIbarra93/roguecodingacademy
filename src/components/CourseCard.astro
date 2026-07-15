@@ -1,0 +1,70 @@
+---
+import type { CourseListItem } from '../lib/courses';
+
+interface Props {
+  course: CourseListItem;
+}
+
+const { course } = Astro.props;
+
+function statusLabel(status: CourseListItem['status']) {
+  switch (status) {
+    case 'open':
+      return 'Open';
+    case 'full':
+      return 'Full';
+    default:
+      return 'Coming soon';
+  }
+}
+
+const searchHaystack = [course.build, course.title, course.summary, ...course.topics].join(' ');
+---
+
+<li
+  class="course-card"
+  data-course-card
+  data-topics={course.topics.join(',')}
+  data-search={searchHaystack}
+>
+  <a
+    href={`/courses/${course.slug}`}
+    class="glass-panel group flex h-full flex-col p-5 transition-shadow duration-300 hover:shadow-tron-glow sm:p-6"
+  >
+    <div class="flex flex-wrap items-center gap-2 text-xs uppercase tracking-wider text-app-muted">
+      <span class="text-app-accent">{course.level}</span>
+      <span aria-hidden="true">·</span>
+      <span>{statusLabel(course.status)}</span>
+      {
+        course.duration && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span>{course.duration}</span>
+          </>
+        )
+      }
+    </div>
+    <h3
+      class="mt-3 font-display text-xl font-semibold tracking-tight text-app-text group-hover:text-app-accent"
+    >
+      {course.build}
+    </h3>
+    <p class="mt-2 text-sm text-app-mist">{course.title}</p>
+    <p class="mt-2 flex-1 text-sm text-app-muted">{course.summary}</p>
+    {
+      course.prerequisites.length > 0 && (
+        <div class="mt-4 border-t border-app-border/40 pt-4">
+          <p class="text-xs font-medium uppercase tracking-wider text-app-muted">Prerequisites</p>
+          <ul class="mt-2 space-y-1 text-sm text-app-muted">
+            {course.prerequisites.map((p) => (
+              <li class="flex gap-2">
+                <span class="text-app-accent" aria-hidden="true">·</span>
+                <span>{p}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </a>
+</li>
