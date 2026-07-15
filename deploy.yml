@@ -1,0 +1,14 @@
+# Komodo stack: static Astro site served by Nginx on host port 8084.
+# Image must be lowercase (GHCR). Built by .github/workflows/deploy.yml for linux/arm64.
+
+services:
+  web:
+    image: ghcr.io/diegoibarra93/roguecodingacademy:latest
+    restart: unless-stopped
+    ports:
+      - "8084:80"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
