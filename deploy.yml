@@ -7,8 +7,3 @@ services:
     restart: unless-stopped
     ports:
       - "8084:80"
-    deploy:
-      resources:
-        limits:
-          cpus: "0.50"
-          memory: 256M
