@@ -1,8 +1,8 @@
 export const homeHero = {
   brand: 'Rogue Coding Academy',
-  headline: 'Ride the rapids. Build what lasts.',
+  headline: 'Local coding academy. In-person software coaching.',
   supporting:
-    'Technology has always moved fast. AI made the current swifter. Master software — then harness AI.',
+    'Not another online bootcamp. Rogue Coding Academy is hands-on software development coaching in Grants Pass — built for the Rogue Valley.',
   primaryCta: { href: '/courses', label: 'Explore courses' },
   secondaryCta: { href: '/team', label: 'Meet the founder' },
 } as const;
@@ -37,25 +37,39 @@ export const eras = [
     device: 'phone',
   },
   {
-    id: 'era-ai',
-    year: 'Now',
-    title: 'AI accelerates everything',
-    body: 'Models write, reason, and ship alongside us. The winners know how software works — and how to ride AI.',
-    device: 'ai',
+    id: 'era-chatgpt',
+    year: '2022',
+    title: 'ChatGPT goes public',
+    body: 'November 30: a chatbot that could write, reason, and code in plain English. Consumer AI left the lab — and the current got faster overnight.',
+    device: 'chat',
+  },
+  {
+    id: 'era-ms-ai-code',
+    year: '2025',
+    title: 'AI writes the codebase',
+    body: 'Satya Nadella (CEO of Microsoft): as much as 30% of Microsoft’s code is now written by AI. What took decades to reinvent once is shifting in single fiscal years.',
+    device: 'code',
+  },
+  {
+    id: 'era-fable',
+    year: '2026',
+    title: 'Mythos-class power, governed',
+    body: 'Anthropic launches Claude Fable 5 — Mythos-level capability. A model so powerful the US government delays release to prepare; a model so capable that it has an AI babysitter which determines which questions it will answer.',
+    device: 'fable',
   },
 ] as const;
 
 export const thesis = {
-  eyebrow: 'The rapids',
-  headline: 'Software craft + AI literacy = leverage',
-  body: 'Disruption was never optional. In the AI era it is constant. Those who combine deep fundamentals with fluent AI use do not get swept under — they run the rapids.',
+  eyebrow: 'Why now',
+  headline: 'Ride the AI-era rapids — with coaching beside you',
+  body: 'AI disruption is faster and deeper than any wave before it. Personalized, local coaching is how you stay upright in the current — and come out ahead.',
   cta: { href: '/courses', label: 'Find your course' },
 } as const;
 
 export const localClose = {
   eyebrow: 'Rogue Valley',
   headline: 'High-quality tech, right here',
-  body: 'Bringing premier software craft and AI training to Grants Pass and the Rogue Valley — serious curriculum, local access.',
+  body: 'Premier software and AI coaching for Grants Pass and the Rogue Valley — serious craft, local access, in person.',
 } as const;
 
 export const footerCopy = {

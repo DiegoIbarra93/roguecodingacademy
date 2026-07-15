@@ -1,0 +1,50 @@
+---
+import { homeHero } from '../data/copy';
+---
+
+<section
+  id="hero"
+  class="relative -mt-[var(--header-stack)] min-h-[100dvh] overflow-hidden bg-app-bg"
+  aria-label="Rogue Coding Academy"
+>
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div
+      class="accent-bubble accent-bubble--a absolute -left-28 top-0 h-[24rem] w-[24rem] rounded-full bg-app-accent/25 blur-3xl motion-reduce:hidden sm:-left-32 sm:h-[32rem] sm:w-[32rem]"
+    >
+    </div>
+    <div
+      class="accent-bubble accent-bubble--b absolute -right-20 bottom-[8%] h-[24rem] w-[24rem] rounded-full bg-app-river/40 blur-3xl motion-reduce:hidden sm:-right-28 sm:h-[32rem] sm:w-[32rem]"
+    >
+    </div>
+    <div
+      class="accent-bubble accent-bubble--c absolute left-[28%] top-[58%] h-48 w-48 rounded-full bg-app-mist/15 blur-3xl motion-reduce:hidden sm:h-64 sm:w-64"
+    >
+    </div>
+  </div>
+
+  <div
+    class="relative z-10 mx-auto flex min-h-[100dvh] w-full max-w-6xl flex-col justify-center px-4 pt-[calc(var(--header-stack)+0.5rem)] sm:px-8"
+  >
+    <p
+      class="font-display text-[1.875rem] font-bold leading-[1.15] tracking-tight text-app-text min-[400px]:text-4xl sm:text-5xl lg:text-6xl"
+    >
+      {homeHero.brand}
+    </p>
+    <h1
+      class="mt-4 max-w-3xl font-display text-xl font-semibold tracking-tight text-app-mist sm:mt-6 sm:text-3xl lg:text-4xl"
+    >
+      {homeHero.headline}
+    </h1>
+    <p class="mt-4 max-w-xl text-base text-app-muted sm:mt-5 sm:text-lg">
+      {homeHero.supporting}
+    </p>
+    <div class="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
+      <a href={homeHero.primaryCta.href} class="btn-primary w-full sm:w-auto">
+        {homeHero.primaryCta.label}
+      </a>
+      <a href={homeHero.secondaryCta.href} class="btn-ghost w-full sm:w-auto">
+        {homeHero.secondaryCta.label}
+      </a>
+    </div>
+  </div>
+</section>

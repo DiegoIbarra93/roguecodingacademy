@@ -1,9 +1,9 @@
 export const site = {
   name: 'Rogue Coding Academy',
   shortName: 'Rogue',
-  tagline: 'Harness AI with real software craft.',
+  tagline: 'In-person software coaching in the Rogue Valley.',
   description:
-    'Premier coding academy in Grants Pass, OR. Learn software fundamentals and AI literacy to ride the rapids of technology.',
+    'Local coding academy in Grants Pass, OR. In-person software development coaching for the Rogue Valley — ride the AI-era rapids with expert guidance.',
   url: 'https://roguecoding.academy',
   email: 'coding@ibarraventures.com',
   locale: 'en_US',

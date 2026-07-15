@@ -12,16 +12,7 @@ export type CinemaEra = {
   device: string;
 };
 
-export type CinemaHero = {
-  brand: string;
-  headline: string;
-  supporting: string;
-  primaryCta: { href: string; label: string };
-  secondaryCta: { href: string; label: string };
-};
-
 const props = defineProps<{
-  hero: CinemaHero;
   eras: readonly CinemaEra[];
   journeyEyebrow?: string;
   journeyTitle?: string;
@@ -29,9 +20,8 @@ const props = defineProps<{
 
 const rootRef = ref<HTMLElement | null>(null);
 const stageRef = ref<HTMLElement | null>(null);
-const heroRef = ref<HTMLElement | null>(null);
+const introRef = ref<HTMLElement | null>(null);
 const hudRef = ref<HTMLElement | null>(null);
-const cueRef = ref<HTMLElement | null>(null);
 const railFillRef = ref<HTMLElement | null>(null);
 const activeIndex = ref(-1);
 const reducedMotion = ref(
@@ -42,7 +32,9 @@ const reducedMotion = ref(
 let ctx: gsap.Context | null = null;
 
 const journeyEyebrow = computed(() => props.journeyEyebrow ?? 'Tech eras');
-const journeyTitle = computed(() => props.journeyTitle ?? 'Always fast. Now faster.');
+const journeyTitle = computed(
+  () => props.journeyTitle ?? 'Decades of steady steps. Then AI leapfrogged the map.',
+);
 
 const tickTops = computed(() => {
   const n = props.eras.length;
@@ -72,7 +64,7 @@ onMounted(() => {
     gsap.set(scenes, { autoAlpha: 0, scale: 1.04 });
     gsap.set(hudRef.value, { autoAlpha: 0 });
 
-    const pinDistance = () => window.innerHeight * (n * 1.15 + 0.5);
+    const pinDistance = () => window.innerHeight * (n * 1.15 + 0.35);
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
@@ -89,8 +81,8 @@ onMounted(() => {
           if (railFillRef.value) {
             railFillRef.value.style.transform = `scaleY(${p})`;
           }
-          const journeyStart = 0.08;
-          const journeyEnd = 0.88;
+          const journeyStart = 0.06;
+          const journeyEnd = 0.9;
           if (p < journeyStart) {
             activeIndex.value = -1;
             return;
@@ -105,17 +97,11 @@ onMounted(() => {
       },
     });
 
-    // Leave the hero — journey owns the frame
-    tl.to(
-      heroRef.value,
-      { autoAlpha: 0, scale: 0.96, y: -20, duration: 0.07 },
-      0,
-    );
-    tl.to(cueRef.value, { autoAlpha: 0, duration: 0.04 }, 0);
+    tl.to(introRef.value, { autoAlpha: 0, y: -16, duration: 0.06 }, 0);
     tl.to(hudRef.value, { autoAlpha: 1, duration: 0.06 }, 0.04);
 
-    const segment = 0.74 / n;
-    const startAt = 0.09;
+    const segment = 0.78 / n;
+    const startAt = 0.07;
 
     scenes.forEach((scene, i) => {
       const t0 = startAt + i * segment;
@@ -144,13 +130,7 @@ onMounted(() => {
       }
     });
 
-    // Bookend: hero returns before unlock
-    tl.to(hudRef.value, { autoAlpha: 0, duration: 0.06 }, 0.9);
-    tl.to(
-      heroRef.value,
-      { autoAlpha: 1, scale: 1, y: 0, duration: 0.08 },
-      0.9,
-    );
+    tl.to(hudRef.value, { autoAlpha: 0, duration: 0.06 }, 0.92);
   }, root);
 });
 
@@ -164,7 +144,7 @@ onUnmounted(() => {
   <section
     ref="rootRef"
     id="journey"
-    class="home-cinema relative -mt-[var(--header-stack)]"
+    class="home-cinema relative"
     aria-label="Technology eras journey"
   >
     <div
@@ -172,57 +152,15 @@ onUnmounted(() => {
       class="home-cinema__stage relative overflow-hidden bg-app-bg"
       :class="reducedMotion ? 'min-h-[100dvh] pb-12' : 'h-[100dvh]'"
     >
-      <!-- Hero accent orbs — sit under the sticky nav from scroll 0 -->
-      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div
-          class="accent-bubble accent-bubble--a absolute -left-28 top-0 h-[24rem] w-[24rem] rounded-full bg-app-accent/25 blur-3xl motion-reduce:hidden sm:-left-32 sm:h-[32rem] sm:w-[32rem]"
-        />
-        <div
-          class="accent-bubble accent-bubble--b absolute -right-20 bottom-[8%] h-[24rem] w-[24rem] rounded-full bg-app-river/40 blur-3xl motion-reduce:hidden sm:-right-28 sm:h-[32rem] sm:w-[32rem]"
-        />
-        <div
-          class="accent-bubble accent-bubble--c absolute left-[28%] top-[58%] h-48 w-48 rounded-full bg-app-mist/15 blur-3xl motion-reduce:hidden sm:h-64 sm:w-64"
-        />
-      </div>
-
-      <!-- Hero -->
+      <!-- Journey intro -->
       <div
-        ref="heroRef"
-        class="relative z-10 mx-auto flex w-full max-w-6xl flex-col justify-center px-4 pt-[calc(var(--header-stack)+0.5rem)] sm:px-8"
-        :class="reducedMotion ? 'min-h-[70dvh]' : 'h-full'"
+        v-if="!reducedMotion"
+        ref="introRef"
+        class="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center sm:px-8"
       >
-        <p
-          class="font-display text-[1.875rem] font-bold leading-[1.15] tracking-tight text-app-text min-[400px]:text-4xl sm:text-5xl lg:text-6xl"
-        >
-          {{ hero.brand }}
-        </p>
-        <h1
-          class="mt-4 max-w-3xl font-display text-xl font-semibold tracking-tight text-app-mist sm:mt-6 sm:text-3xl lg:text-4xl"
-        >
-          {{ hero.headline }}
-        </h1>
-        <p class="mt-4 max-w-xl text-base text-app-muted sm:mt-5 sm:text-lg">
-          {{ hero.supporting }}
-        </p>
-        <div class="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
-          <a :href="hero.primaryCta.href" class="btn-primary w-full sm:w-auto">
-            {{ hero.primaryCta.label }}
-          </a>
-          <a :href="hero.secondaryCta.href" class="btn-ghost w-full sm:w-auto">
-            {{ hero.secondaryCta.label }}
-          </a>
-        </div>
-
-        <p
-          v-if="!reducedMotion"
-          ref="cueRef"
-          class="mt-10 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-app-muted/80 sm:mt-16"
-        >
-          <span
-            class="cinema-cue-line inline-block h-8 w-px bg-gradient-to-b from-app-accent to-transparent"
-            aria-hidden="true"
-          />
-          Scroll to travel the eras
+        <p class="eyebrow">{{ journeyEyebrow }}</p>
+        <p class="mt-2 max-w-xl font-display text-2xl font-semibold tracking-tight text-app-text sm:mt-3 sm:text-3xl lg:text-4xl">
+          {{ journeyTitle }}
         </p>
       </div>
 
@@ -237,7 +175,6 @@ onUnmounted(() => {
           class="cinema-scene absolute inset-0 flex flex-col px-4 pb-10 pt-28 sm:px-10 sm:pb-12 sm:pt-32 lg:px-14"
           style="visibility: hidden"
         >
-          <!-- Year HUD (top-left) -->
           <div class="max-w-xl shrink-0 pr-10 sm:pr-20">
             <p class="font-mono text-[11px] uppercase tracking-[0.28em] text-app-accent sm:text-xs">
               {{ era.year }}
@@ -249,7 +186,6 @@ onUnmounted(() => {
             </p>
           </div>
 
-          <!-- Mid: device front-and-center on mobile; copy + art row on sm+ -->
           <div
             class="relative mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center gap-6 sm:flex-row sm:items-center sm:gap-8 lg:gap-16"
           >
@@ -326,12 +262,10 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <!-- Mobile device (shown under copy when mid-size truncates side art) — only in reduced? handled in scenes -->
-
       <!-- Reduced-motion: full stacked pages -->
       <div
         v-if="reducedMotion"
-        class="relative z-10 mx-auto w-full max-w-3xl space-y-12 px-4 pt-6 sm:space-y-16 sm:px-8 sm:pt-8"
+        class="relative z-10 mx-auto w-full max-w-3xl space-y-12 px-4 pt-[calc(var(--header-stack)+2rem)] sm:space-y-16 sm:px-8"
       >
         <p class="eyebrow">{{ journeyEyebrow }}</p>
         <p class="mt-1 font-display text-lg font-semibold sm:text-xl">{{ journeyTitle }}</p>
@@ -357,27 +291,3 @@ onUnmounted(() => {
     </div>
   </section>
 </template>
-
-<style scoped>
-.cinema-cue-line {
-  animation: cinema-pulse 2.2s ease-in-out infinite;
-}
-
-@keyframes cinema-pulse {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: scaleY(0.75);
-  }
-  50% {
-    opacity: 1;
-    transform: scaleY(1);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cinema-cue-line {
-    animation: none;
-  }
-}
-</style>

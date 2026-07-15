@@ -88,6 +88,76 @@ defineProps<{
       <circle cx="60" cy="96" r="3" fill="currentColor" opacity="0.5" />
     </template>
 
+    <template v-else-if="device === 'chat'">
+      <rect
+        x="22"
+        y="28"
+        width="76"
+        height="52"
+        rx="12"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      />
+      <path
+        d="M44 80v10l14-10"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linejoin="round"
+      />
+      <circle cx="44" cy="54" r="3.5" fill="currentColor" opacity="0.55" />
+      <circle cx="60" cy="54" r="3.5" fill="currentColor" opacity="0.7" />
+      <circle cx="76" cy="54" r="3.5" fill="currentColor" opacity="0.55" />
+    </template>
+
+    <template v-else-if="device === 'code'">
+      <path
+        d="M42 36L26 60l16 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M78 36l16 24-16 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M66 30L54 90"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        opacity="0.55"
+      />
+    </template>
+
+    <template v-else-if="device === 'fable'">
+      <path
+        d="M60 18l28 12v22c0 20-12 36-28 42-16-6-28-22-28-42V30l28-12z"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linejoin="round"
+      />
+      <circle cx="60" cy="52" r="10" fill="currentColor" opacity="0.2" />
+      <path
+        d="M52 52h16M60 44v16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        opacity="0.85"
+      />
+      <circle cx="60" cy="74" r="3" fill="currentColor" opacity="0.5" />
+    </template>
+
     <template v-else>
       <circle
         cx="60"

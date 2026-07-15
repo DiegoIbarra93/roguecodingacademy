@@ -49,17 +49,18 @@
 
 - Source of truth for UI strings: `src/data/copy.ts` (plus `src/data/site.ts` for site-wide name/tagline/description)
 - Brand voice: next-gen, precise, confident; whitewater/rapids metaphors (not ocean/wave/surf)
-- Primary metaphor: **rapids** — “Ride the rapids,” “current swifter,” “run the rapids” (Grants Pass rafting cue, light-touch)
-- Value proposition: Premier coding academy in Grants Pass — software craft + AI literacy for the Rogue Valley
+- Primary metaphor: **rapids** — used in the “why” section and era journey; hero leads with category clarity, not metaphor
+- Value proposition: Local coding academy in Grants Pass — in-person software development coaching for the Rogue Valley
+- Homepage section cascade: Hero (what: local in-person academy) → Rogue Valley (what: high-quality tech here) → Tech eras (pace of change) → Why now (AI disruption + local coaching)
 - Local section focus: bringing high-quality tech training to the Rogue Valley — not origin-story about the river name
-- Differentiators: founder VP Eng instructor; Rogue Valley access to premier training; portfolio-quality experience
+- Differentiators: in-person personalized coaching; founder VP Eng instructor; Rogue Valley access to premier training; portfolio-quality experience
 - Phrases to avoid: “Named for the Rogue River”; wave/surf metaphors; bootcamp scam tropes; vague “learn coding fast” without craft
 
 ## 6. Page-Level SEO Map
 
 | Page | Primary Keyword | Meta Title | Meta Description | Schema Type |
 |------|----------------|------------|-----------------|-------------|
-| `/` | coding academy Grants Pass | Rogue Coding Academy | Premier coding academy in Grants Pass, OR. Software fundamentals + AI literacy to ride the rapids. | EducationalOrganization, WebSite, WebPage |
+| `/` | coding academy Grants Pass | Rogue Coding Academy | Local coding academy in Grants Pass, OR. In-person software coaching for the Rogue Valley — ride the AI-era rapids with expert guidance. | EducationalOrganization, WebSite, WebPage |
 | `/courses` | learn to code Southern Oregon | Courses \| Rogue Coding Academy | Browse courses; filter by topic and level; request a seat. | CollectionPage |
 | `/courses/[slug]` | course title | [Course] \| Rogue Coding Academy | Course summary | Course, WebPage |
 | `/team` | Diego Ibarra instructor | Founding team \| Rogue Coding Academy | Meet founder and primary instructor Diego Ibarra. | AboutPage, Person |
@@ -92,3 +93,5 @@
 |------|--------|--------|
 | 2026-07-14 | Initial SEO strategy for Astro marketing site | Agent |
 | 2026-07-14 | Messaging: wave→rapids; local close → Rogue Valley tech quality; river-name etymology internal-only | Agent |
+| 2026-07-14 | Homepage What→Why cascade: hero category clarity, Rogue Valley promoted, thesis retargeted to AI disruption + local coaching | Agent |
+| 2026-07-14 | Eras: keep decade arc, then leapfrog beats ChatGPT 2022 → MS 30% AI code 2025 → Claude Fable 2026 | Agent |
